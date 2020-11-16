@@ -28,7 +28,7 @@ def getAllParts():
 
 # this function gets called when there is a GET request for /parts/id
 @rest.route('/parts/<int:id>', methods=['GET'])
-def getPart(id):
+def getParts(id):
     for part in parts:
         if part.id == id:
             return jsonify(part.makeDict())
@@ -54,8 +54,24 @@ def addParts():
     return jsonify(newPart.makeDict())
 
 # this selects a certain part to delete
+@rest.route('/parts/<int:id>', methods=['PUT'])
+def updateParts(id):
+    newPart = Part(
+        request.json['id'],
+        request.json['name'],
+        request.json['price'],
+        request.json['stock'],
+        request.json['min'],
+        request.json['max']
+    )
+    for part in parts:
+        if part.id == id:
+            parts.insert(part.id, newPart)
+            parts.remove(part.id + 1)
+
+# this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['DELETE'])
-def delteParts(id):
+def deleteParts(id):
     for part in parts:
         if part.id == id:
             parts.remove(part.id)
