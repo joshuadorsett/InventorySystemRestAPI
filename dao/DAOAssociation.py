@@ -5,14 +5,14 @@ class DAOAssociation(DAOInterface):
     def selectAll(self):
         pass
 
-    def select(self, part):
+    def select(self, association):
         pass
 
-    def insert(self, part):
+    def insert(self, association):
         pass
 
-    def update(self, part):
+    def update(self, association):
         pass
 
-    def delete(self, part):
+    def delete(self, association):
         pass

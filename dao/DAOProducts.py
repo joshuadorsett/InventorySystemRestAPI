@@ -5,14 +5,14 @@ class PartsDAO(DAOInterface):
     def selectAll(self):
         pass
 
-    def select(self, part):
+    def select(self, product):
         pass
 
-    def insert(self, part):
+    def insert(self, product):
         pass
 
-    def update(self, part):
+    def update(self, product):
         pass
 
-    def delete(self, part):
+    def delete(self, product):
         pass

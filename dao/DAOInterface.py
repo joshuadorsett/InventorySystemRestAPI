@@ -7,17 +7,17 @@ class DAOInterface(ABC):
         pass
 
     @abstractmethod
-    def select(self, part):
+    def select(self, model):
         pass
 
     @abstractmethod
-    def insert(self, part):
+    def insert(self, model):
         pass
 
     @abstractmethod
-    def update(self, part):
+    def update(self, model):
         pass
 
     @abstractmethod
-    def delete(self, part):
+    def delete(self, model):
         pass
