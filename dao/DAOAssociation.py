@@ -1,7 +1,7 @@
 from dao.DAOInterface import DAOInterface
 
 
-class partsDAO(DAOInterface):
+class AssociationDAO(DAOInterface):
 
     def __init__(self):
         super()

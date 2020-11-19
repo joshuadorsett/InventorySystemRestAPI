@@ -3,7 +3,6 @@ from flask import Flask, jsonify, request, abort
 from models.part import Part
 from models.products import Product
 
-
 # define the server object
 rest = Flask(__name__)
 
@@ -26,12 +25,30 @@ def getAllParts():
     return jsonify(partsDictList)
 
 
+@rest.route('/products', methods=['GET'])
+def getAllParts():
+    print('all products requested')
+    productDictList = []
+    for product in products:
+        productDictList.append(product.makeDict())
+    return jsonify(productDictList)
+
+
 # this function gets called when there is a GET request for /parts/id
 @rest.route('/parts/<int:id>', methods=['GET'])
 def getParts(id):
     for part in parts:
         if part.id == id:
             return jsonify(part.makeDict())
+    else:
+        return 'id not found'
+
+
+@rest.route('/products/<int:id>', methods=['GET'])
+def getProducst(id):
+    for product in products:
+        if product.id == id:
+            return jsonify(product.makeDict())
     else:
         return 'id not found'
 
@@ -53,6 +70,7 @@ def addParts():
     parts.append(newPart)
     return jsonify(newPart.makeDict())
 
+
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['PUT'])
 def updateParts(id):
@@ -68,6 +86,7 @@ def updateParts(id):
         if part.id == id:
             parts.insert(part.id, newPart)
             parts.remove(part.id + 1)
+
 
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['DELETE'])
