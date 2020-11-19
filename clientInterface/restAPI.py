@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request, abort
 
-from models.part import Part
-from models.products import Product
+from models.Part import Part
+from models.Products import Product
 
 # define the server object
 rest = Flask(__name__)
@@ -26,7 +26,7 @@ def getAllParts():
 
 
 @rest.route('/products', methods=['GET'])
-def getAllParts():
+def getAllProducts():
     print('all products requested')
     productDictList = []
     for product in products:
@@ -38,16 +38,18 @@ def getAllParts():
 @rest.route('/parts/<int:id>', methods=['GET'])
 def getParts(id):
     for part in parts:
-        if part.id == id:
+        partId = part.getId()
+        if partId == id:
             return jsonify(part.makeDict())
     else:
         return 'id not found'
 
 
 @rest.route('/products/<int:id>', methods=['GET'])
-def getProducst(id):
+def getProducts(id):
     for product in products:
-        if product.id == id:
+        productId = product.getId()
+        if productId == id:
             return jsonify(product.makeDict())
     else:
         return 'id not found'
@@ -71,6 +73,22 @@ def addParts():
     return jsonify(newPart.makeDict())
 
 
+@rest.route('/products', methods=['POST'])
+def addProducts():
+    if not request.json:
+        abort(400)
+    newProduct = Product(
+        request.json['id'],
+        request.json['name'],
+        request.json['price'],
+        request.json['stock'],
+        request.json['min'],
+        request.json['max']
+    )
+    products.append(newProduct)
+    return jsonify(newProduct.makeDict())
+
+
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['PUT'])
 def updateParts(id):
@@ -83,17 +101,44 @@ def updateParts(id):
         request.json['max']
     )
     for part in parts:
-        if part.id == id:
-            parts.insert(part.id, newPart)
-            parts.remove(part.id + 1)
+        partId = part.getId()
+        if partId == id:
+            parts.insert(partId, newPart)
+            parts.remove(partId + 1)
+
+
+@rest.route('/products/<int:id>', methods=['PUT'])
+def updateProducts(id):
+    newProduct = Product(
+        request.json['id'],
+        request.json['name'],
+        request.json['price'],
+        request.json['stock'],
+        request.json['min'],
+        request.json['max']
+    )
+    for product in products:
+        productId = product.getId()
+        if productId == id:
+            products.insert(productId, newProduct)
+            products.remove(productId + 1)
 
 
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['DELETE'])
 def deleteParts(id):
     for part in parts:
-        if part.id == id:
-            parts.remove(part.id)
+        partId = part.getId()
+        if partId == id:
+            parts.remove(partId)
+
+
+@rest.route('/products/<int:id>', methods=['DELETE'])
+def deleteProducts(id):
+    for product in products:
+        productId = product.getId()
+        if productId == id:
+            products.remove(productId)
 
 
 if __name__ == '__main__':
