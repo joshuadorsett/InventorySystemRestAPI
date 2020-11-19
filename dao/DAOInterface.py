@@ -1,21 +1,23 @@
-class DAOInterface:
+from abc import abstractmethod, ABC
 
+
+class DAOInterface(ABC):
+    @abstractmethod
     def selectAll(self):
-        #   return a list of all parts
-        return "We are all parts"
+        pass
 
+    @abstractmethod
     def select(self, part):
-        #   uses sql to select a specific part based on part ID
-        return "I am a select part"
+        pass
 
+    @abstractmethod
     def insert(self, part):
-        #   uses sql to insert the part into the database
-        return "New part inserted into DB"
+        pass
 
+    @abstractmethod
     def update(self, part):
-        #   updates a part using sql
-        return "Selected part updated into DB"
+        pass
 
+    @abstractmethod
     def delete(self, part):
-        #   deletes a specific part based on part ID
-        return "Selected part was deleted from DB"
+        pass
