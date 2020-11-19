@@ -3,21 +3,21 @@ from models.ModelsInterface import ModelsInterface
 
 class Product(ModelsInterface):
     def __init__(self, id, name, price, stock, min, max):
-        self.id = id
-        self.name = name
-        self.price = price
-        self.stock = stock
-        self.min = min
-        self.max = max
+        self._id = id
+        self._name = name
+        self._price = price
+        self._stock = stock
+        self._min = min
+        self._max = max
 
     def makeDict(self):
         return {
-            'id': self.id,
-            'name': self.name,
-            'price': self.price,
-            'stock': self.stock,
-            'min': self.min,
-            'max': self.max
+            'id': self._id,
+            'name': self._name,
+            'price': self._price,
+            'stock': self._stock,
+            'min': self._min,
+            'max': self._max
         }
 
     def getId(self):
