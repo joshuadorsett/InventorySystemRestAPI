@@ -1,4 +1,7 @@
-class Product:
+from models.ModelsInterface import ModelsInterface
+
+
+class Product(ModelsInterface):
     def __init__(self, id, name, price, stock, min, max):
         self.id = id
         self.name = name
@@ -16,3 +19,6 @@ class Product:
             'min': self.min,
             'max': self.max
         }
+
+    def getId(self):
+        return self._id
