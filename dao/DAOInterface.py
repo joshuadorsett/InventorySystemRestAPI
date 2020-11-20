@@ -1,23 +1,16 @@
-from abc import abstractmethod, ABC
+class DAOInterface:
 
-
-class DAOInterface(ABC):
-    @abstractmethod
     def selectAll(self):
         pass
 
-    @abstractmethod
-    def select(self, model):
+    def select(self, ID):
         pass
 
-    @abstractmethod
     def insert(self, model):
         pass
 
-    @abstractmethod
     def update(self, model):
         pass
 
-    @abstractmethod
-    def delete(self, model):
+    def delete(self, ID):
         pass
