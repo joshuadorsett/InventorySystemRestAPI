@@ -27,10 +27,28 @@ class DAOParts(DAOInterface):
         return p
 
     def insert(self, part):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'INSERT INTO parts (name, price, stock, min, max) ' \
+              'VALUES (' + part._name + ', ' + part._price + ', ' + part._stock + ','\
+                + part._min + ', ' + part._max + ')'
+        cursor.execute(stm)
+        return "new part was inserted"
+
 
     def update(self, part):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'UPDATE parts ' \
+              'SET name = '+ part._name + ', ' \
+            + 'price = ' + part._price + ', ' \
+            + 'stock = ' + part._stock + ', ' \
+            + 'min = ' + part._min + ', ' \
+            + 'max = ' + part._max \
+            + 'WHERE partsId = ' + part.getId() + ';'
+        cursor.execute(stm)
+        return "part was updated"
 
     def delete(self, partsId):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'DELETE FROM parts WHERE partsId = ' + partsId + ';'
+        cursor.execute(stm)
+        return "part was deleted"

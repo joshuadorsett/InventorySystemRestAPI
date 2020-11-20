@@ -26,10 +26,27 @@ class DAOProducts(DAOInterface):
         return p
 
     def insert(self, product):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'INSERT INTO products (name, price, stock, min, max) ' \
+              'VALUES (' + product._name + ', ' + product._price + ', ' + product._stock + ',' \
+              + product._min + ', ' + product._max + ')'
+        cursor.execute(stm)
+        return "new product was inserted"
 
     def update(self, product):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'UPDATE products ' \
+              'SET name = ' + product._name + ', ' \
+              + 'price = ' + product._price + ', ' \
+              + 'stock = ' + product._stock + ', ' \
+              + 'min = ' + product._min + ', ' \
+              + 'max = ' + product._max \
+              + 'WHERE productsId = ' + product.getId() + ';'
+        cursor.execute(stm)
+        return "product was updated"
 
     def delete(self, productId):
-        pass
+        cursor = self.conn.getNewCursor()
+        stm = 'DELETE FROM products WHERE productId = ' + productId + ';'
+        cursor.execute(stm)
+        return "product was deleted"
