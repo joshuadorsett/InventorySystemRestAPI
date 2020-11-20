@@ -1,24 +1,24 @@
+import psycopg2
 from flask import Flask, jsonify, request, abort
 
+from dao.DAOParts import DAOParts
+from dao.DAOProducts import DAOProducts
 from models.Part import Part
 from models.Products import Product
 
 # define the server object
 rest = Flask(__name__)
 
-# mock database
-testPart = Part(0, "Hammer", 6.78, 689, 2, 23)
-testProduct = Product(0, "ToolKit", 68.89, 320, 7, 90)
-parts = []
-products = []
-parts.append(testPart)
-products.append(testProduct)
+# instantiate Database Access Objects
+partsDao = DAOParts()
+productsDao = DAOProducts()
 
 
 # this function gets called when there is a GET request for /parts
 @rest.route('/parts', methods=['GET'])
 def getAllParts():
     print('all parts requested')
+    parts = partsDao.selectAll()
     partsDictList = []
     for part in parts:
         partsDictList.append(part.makeDict())
@@ -28,6 +28,7 @@ def getAllParts():
 @rest.route('/products', methods=['GET'])
 def getAllProducts():
     print('all products requested')
+    products = productsDao.selectAll()
     productDictList = []
     for product in products:
         productDictList.append(product.makeDict())
@@ -37,22 +38,15 @@ def getAllProducts():
 # this function gets called when there is a GET request for /parts/id
 @rest.route('/parts/<int:id>', methods=['GET'])
 def getParts(id):
-    for part in parts:
-        partId = part.getId()
-        if partId == id:
-            return jsonify(part.makeDict())
-    else:
-        return 'id not found'
+    part = partsDao.select(id)
+    return jsonify(part.makeDict())
 
 
 @rest.route('/products/<int:id>', methods=['GET'])
 def getProducts(id):
-    for product in products:
-        productId = product.getId()
-        if productId == id:
-            return jsonify(product.makeDict())
-    else:
-        return 'id not found'
+    product = productsDao.select(id)
+    return jsonify(product.makeDict())
+
 
 
 # when post method is received this converts json to dictionary item
@@ -69,7 +63,7 @@ def addParts():
         request.json['min'],
         request.json['max']
     )
-    parts.append(newPart)
+    partsDao.insert(newPart)
     return jsonify(newPart.makeDict())
 
 
@@ -85,7 +79,7 @@ def addProducts():
         request.json['min'],
         request.json['max']
     )
-    products.append(newProduct)
+    productsDao.insert(newProduct)
     return jsonify(newProduct.makeDict())
 
 
@@ -100,11 +94,12 @@ def updateParts(id):
         request.json['min'],
         request.json['max']
     )
+    parts = partsDao.selectAll()
     for part in parts:
         partId = part.getId()
         if partId == id:
-            parts.insert(partId, newPart)
-            parts.remove(partId + 1)
+            partsDao.update(newPart)
+    return jsonify(newPart.makeDict())
 
 
 @rest.route('/products/<int:id>', methods=['PUT'])
@@ -117,29 +112,40 @@ def updateProducts(id):
         request.json['min'],
         request.json['max']
     )
+    products = productsDao.selectAll()
     for product in products:
         productId = product.getId()
         if productId == id:
-            products.insert(productId, newProduct)
-            products.remove(productId + 1)
+            productsDao.update(newProduct)
+    return jsonify(newProduct.makeDict())
 
 
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['DELETE'])
 def deleteParts(id):
+    parts = partsDao.selectAll()
     for part in parts:
         partId = part.getId()
         if partId == id:
-            parts.remove(partId)
-
+            partsDao.delete(partId)
+            return jsonify(part.makeDict())
 
 @rest.route('/products/<int:id>', methods=['DELETE'])
 def deleteProducts(id):
+    products = productsDao.selectAll()
     for product in products:
         productId = product.getId()
         if productId == id:
-            products.remove(productId)
+            productsDao.delete(productId)
+            return jsonify(product.makeDict())
 
 
 if __name__ == '__main__':
+    connection = psycopg2.connect(
+        dbname="InventorySystemDB",
+        user="joshua",
+        password="password",
+        host="localhost",
+        port="5433"
+    )
     rest.run(debug=True)
