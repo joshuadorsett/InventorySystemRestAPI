@@ -1,54 +1,30 @@
+from sqlalchemy import Table
+
 from dao.Connection import Connection
 from dao.DAOInterface import DAOInterface
-from models.Part import Part
 
 
 class DAOParts(DAOInterface):
-    conn = Connection()
+
+    def __init__(self):
+        self.conn = Connection()
+        self.meta = self.conn.meta
+        self.Parts = Table(
+
+        )
 
     def selectAll(self):
-        cursor = self.conn.getNewCursor()
-        stm = 'SELECT * FROM parts'
-        cursor.execute(stm)
-        parts = []
-        rows = cursor.fetchall()
-        for row in rows:
-            p = Part(row[0], row[1], row[2], row[3], row[4], row[5])
-            parts.append(p)
-        return parts
+        pass
 
     def select(self, partsId):
-        cursor = self.conn.getNewCursor()
-        stm = ' SELECT * FROM parts' \
-              'WHERE ' + partsId + ' = partsId'
-        cursor.execute(stm)
-        row = cursor.fetchall()
-        p = Part(row[0], row[1], row[2], row[3], row[4], row[5])
-        return p
+        pass
 
     def insert(self, part):
-        cursor = self.conn.getNewCursor()
-        stm = 'INSERT INTO parts (name, price, stock, min, max) ' \
-              'VALUES (' + part._name + ', ' + part._price + ', ' + part._stock + ','\
-                + part._min + ', ' + part._max + ')'
-        cursor.execute(stm)
-        return "new part was inserted"
+        pass
 
 
     def update(self, part):
-        cursor = self.conn.getNewCursor()
-        stm = 'UPDATE parts ' \
-              'SET name = '+ part._name + ', ' \
-            + 'price = ' + part._price + ', ' \
-            + 'stock = ' + part._stock + ', ' \
-            + 'min = ' + part._min + ', ' \
-            + 'max = ' + part._max \
-            + 'WHERE partsId = ' + part.getId() + ';'
-        cursor.execute(stm)
-        return "part was updated"
+        pass
 
     def delete(self, partsId):
-        cursor = self.conn.getNewCursor()
-        stm = 'DELETE FROM parts WHERE partsId = ' + partsId + ';'
-        cursor.execute(stm)
-        return "part was deleted"
+        pass
