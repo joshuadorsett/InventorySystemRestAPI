@@ -5,7 +5,6 @@ from dao.DAOInterface import DAOInterface
 
 
 class DAOParts(DAOInterface):
-
     def __init__(self):
         self.conn = Connection()
         self.meta = self.conn.meta
@@ -21,7 +20,6 @@ class DAOParts(DAOInterface):
 
     def insert(self, part):
         pass
-
 
     def update(self, part):
         pass

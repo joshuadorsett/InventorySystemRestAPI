@@ -2,7 +2,6 @@ from sqlalchemy import Table
 
 from dao.Connection import Connection
 from dao.DAOInterface import DAOInterface
-from models.Products import Product
 
 
 class DAOProducts(DAOInterface):

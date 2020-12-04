@@ -11,6 +11,7 @@ class DAOAssociation(DAOInterface):
         self.Associations = Table(
 
         )
+
     def selectAll(self):
         pass
 
