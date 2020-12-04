@@ -1,4 +1,4 @@
-from sqlalchemy import Table
+from sqlalchemy import Table, Integer, Column, Text, Float
 
 from dao.Connection import Connection
 from dao.DAOInterface import DAOInterface
@@ -9,7 +9,14 @@ class DAOParts(DAOInterface):
         self.conn = Connection()
         self.meta = self.conn.meta
         self.Parts = Table(
-
+            'Parts',
+            self.meta,
+            Column('partsId', Integer, primary_key=True),
+            Column('name', Text),
+            Column('price', Float),
+            Column('stock', Integer),
+            Column('min', Integer),
+            Column('max', Integer)
         )
 
     def selectAll(self):
