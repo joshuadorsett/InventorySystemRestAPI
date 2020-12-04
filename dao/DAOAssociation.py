@@ -1,4 +1,4 @@
-from sqlalchemy import Table
+from sqlalchemy import Table, Column, Integer
 
 from dao.Connection import Connection
 from dao.DAOInterface import DAOInterface
@@ -9,7 +9,10 @@ class DAOAssociation(DAOInterface):
         self.conn = Connection()
         self.meta = self.conn.meta
         self.Associations = Table(
-
+            'Associations',
+            self.meta,
+            Column('partsId', Integer, primary_key=True),
+            Column('productsId', Integer, primary_key=True)
         )
 
     def selectAll(self):
