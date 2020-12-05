@@ -53,4 +53,5 @@ class DAOProducts(DAOInterface):
         self.conn.execute(upd)
 
     def delete(self, productId):
-        pass
+        dele = self.Products.delete().where(self.Products.productsId.like(productId))
+        self.conn.execute(dele)
