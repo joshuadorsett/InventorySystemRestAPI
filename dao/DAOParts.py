@@ -27,7 +27,9 @@ class DAOParts(DAOInterface):
         return r.fetchall()
 
     def select(self, partsId):
-        pass
+        sel = self.Parts.select().where( self.Parts.partsId.like(partsId) )
+        r = self.conn.execute(sel)
+        return r.fetchone()
 
     def insert(self, part):
         ins = self.Parts.insert().values(

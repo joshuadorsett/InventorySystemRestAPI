@@ -28,7 +28,9 @@ class DAOProducts(DAOInterface):
 
 
     def select(self, productId):
-        pass
+        sel = self.Products.select().where( self.Products.productsId.like(productId) )
+        r = self.conn.execute(sel)
+        return r.fetchone()
 
     def insert(self, product):
         ins = self.Products.insert().values(
