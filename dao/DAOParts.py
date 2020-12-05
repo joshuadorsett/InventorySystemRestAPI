@@ -7,8 +7,9 @@ from models.Part import Part
 
 class DAOParts(DAOInterface):
     def __init__(self):
-        self.db = DB()
-        self.meta = self.db.meta
+        self.database = DB()
+        self.dbEngine = self.database.connection
+        self.meta = self.database.meta
         self.Parts = Table(
             'Parts',
             self.meta,
@@ -19,8 +20,8 @@ class DAOParts(DAOInterface):
             Column('min', Integer),
             Column('max', Integer)
         )
-        self.meta.create_all(self.db)
-        self.conn = self.db.connection.connect()
+        self.meta.create_all(self.dbEngine)
+        self.conn = self.dbEngine.connect()
 
     def selectAll(self):
         sel = self.Parts.select()

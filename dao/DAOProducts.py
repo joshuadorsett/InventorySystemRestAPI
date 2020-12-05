@@ -7,8 +7,9 @@ from models.Products import Product
 
 class DAOProducts(DAOInterface):
     def __init__(self):
-        self.db = DB()
-        self.meta = self.conn.meta
+        self.database = DB()
+        self.dbEngine = self.database.connection
+        self.meta = self.database.meta
         self.Products = Table(
             'Products',
             self.meta,
@@ -19,8 +20,8 @@ class DAOProducts(DAOInterface):
             Column('min', Integer),
             Column('max', Integer)
         )
-        self.meta.create_all(self.db)
-        self.conn = self.db.connection.connect()
+        self.meta.create_all(self.dbEngine)
+        self.conn = self.dbEngine.connect()
 
     def selectAll(self):
         sel = self.Products.select()
