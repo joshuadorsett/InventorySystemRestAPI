@@ -1,12 +1,12 @@
 from sqlalchemy import Table, Column, Integer
 
-from dao.Connection import Connection
+from dao.db import DB
 from dao.DAOInterface import DAOInterface
 
 
 class DAOAssociation(DAOInterface):
     def __init__(self):
-        self.conn = Connection()
+        self.db = DB()
         self.meta = self.conn.meta
         self.Associations = Table(
             'Associations',
@@ -14,6 +14,8 @@ class DAOAssociation(DAOInterface):
             Column('partsId', Integer, primary_key=True),
             Column('productsId', Integer, primary_key=True)
         )
+        self.meta.create_all(self.db)
+        self.conn = self.db.connection.connect()
 
     def selectAll(self):
         pass

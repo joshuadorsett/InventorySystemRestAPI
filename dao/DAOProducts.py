@@ -1,12 +1,12 @@
 from sqlalchemy import Table, Integer, Float, Text, Column
 
-from dao.Connection import Connection
+from dao.db import DB
 from dao.DAOInterface import DAOInterface
 
 
 class DAOProducts(DAOInterface):
     def __init__(self):
-        self.conn = Connection()
+        self.db = DB()
         self.meta = self.conn.meta
         self.Products = Table(
             'Products',
@@ -18,6 +18,8 @@ class DAOProducts(DAOInterface):
             Column('min', Integer),
             Column('max', Integer)
         )
+        self.meta.create_all(self.db)
+        self.conn = self.db.connection.connect()
 
     def selectAll(self):
         pass
@@ -26,7 +28,15 @@ class DAOProducts(DAOInterface):
         pass
 
     def insert(self, product):
-        pass
+        ins = self.Products.insert().values(
+            partsid=product._id,
+            name=product._name,
+            price=product._price,
+            stock=product._stock,
+            min=product._min,
+            max=product._max
+        )
+        self.conn.execute(ins)
 
     def update(self, product):
         pass

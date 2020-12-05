@@ -1,12 +1,12 @@
 from sqlalchemy import Table, Integer, Column, Text, Float
 
-from dao.Connection import Connection
+from dao.db import DB
 from dao.DAOInterface import DAOInterface
 
 
 class DAOParts(DAOInterface):
     def __init__(self):
-        self.conn = Connection()
+        self.db = DB()
         self.meta = self.conn.meta
         self.Parts = Table(
             'Parts',
@@ -18,6 +18,8 @@ class DAOParts(DAOInterface):
             Column('min', Integer),
             Column('max', Integer)
         )
+        self.meta.create_all(self.db)
+        self.conn = self.db.connection.connect()
 
     def selectAll(self):
         pass
