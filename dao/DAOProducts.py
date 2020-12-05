@@ -34,7 +34,6 @@ class DAOProducts(DAOInterface):
 
     def insert(self, product):
         ins = self.Products.insert().values(
-            productsId=product._id,
             name=product._name,
             price=product._price,
             stock=product._stock,
@@ -44,7 +43,14 @@ class DAOProducts(DAOInterface):
         self.conn.execute(ins)
 
     def update(self, product):
-        pass
+        upd = self.Products.update().values(
+            name=product._name,
+            price=product._price,
+            stock=product._stock,
+            min=product._min,
+            max=product._max
+        ).where(self.Products.productsId.like(product._id))
+        self.conn.execute(upd)
 
     def delete(self, productId):
         pass

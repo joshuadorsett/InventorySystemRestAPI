@@ -33,7 +33,6 @@ class DAOParts(DAOInterface):
 
     def insert(self, part):
         ins = self.Parts.insert().values(
-            partsId=part._id,
             name=part._name,
             price=part._price,
             stock=part._stock,
@@ -43,7 +42,14 @@ class DAOParts(DAOInterface):
         self.conn.execute(ins)
 
     def update(self, part):
-        pass
+        upd = self.Parts.update().values(
+            name=part._name,
+            price=part._price,
+            stock=part._stock,
+            min=part._min,
+            max=part._max
+        )
+        self.conn.execute(upd)
 
     def delete(self, partsId):
         pass
