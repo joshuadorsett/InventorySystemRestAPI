@@ -8,7 +8,7 @@ from models.Part import Part
 class DAOParts(DAOInterface):
     def __init__(self):
         self.db = DB()
-        self.meta = self.conn.meta
+        self.meta = self.db.meta
         self.Parts = Table(
             'Parts',
             self.meta,
