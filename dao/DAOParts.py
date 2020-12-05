@@ -28,7 +28,15 @@ class DAOParts(DAOInterface):
         pass
 
     def insert(self, part):
-        pass
+        ins = self.Parts.insert().values(
+            partsId=part._id,
+            name=part._name,
+            price=part._price,
+            stock=part._stock,
+            min=part._min,
+            max=part._max
+        )
+        self.conn.execute(ins)
 
     def update(self, part):
         pass

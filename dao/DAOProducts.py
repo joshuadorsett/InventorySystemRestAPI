@@ -29,7 +29,7 @@ class DAOProducts(DAOInterface):
 
     def insert(self, product):
         ins = self.Products.insert().values(
-            partsid=product._id,
+            productsId=product._id,
             name=product._name,
             price=product._price,
             stock=product._stock,
