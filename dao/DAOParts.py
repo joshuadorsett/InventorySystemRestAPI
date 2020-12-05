@@ -2,6 +2,7 @@ from sqlalchemy import Table, Integer, Column, Text, Float
 
 from dao.db import DB
 from dao.DAOInterface import DAOInterface
+from models.Part import Part
 
 
 class DAOParts(DAOInterface):
@@ -24,12 +25,19 @@ class DAOParts(DAOInterface):
     def selectAll(self):
         sel = self.Parts.select()
         r = self.conn.execute(sel)
-        return r.fetchall()
+        query = r.fetchall()
+        parts = []
+        for p in query:
+            part = Part(p[0], p[1], p[2], p[3], p[4], p[5])
+            parts.append(part)
+        return parts
 
     def select(self, partsId):
         sel = self.Parts.select().where( self.Parts.partsId.like(partsId) )
         r = self.conn.execute(sel)
-        return r.fetchone()
+        p = r.fetchone()
+        part = Part(p[0], p[1], p[2], p[3], p[4], p[5])
+        return part
 
     def insert(self, part):
         ins = self.Parts.insert().values(

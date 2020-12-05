@@ -25,10 +25,10 @@ class DAOProducts(DAOInterface):
     def selectAll(self):
         sel = self.Products.select()
         r = self.conn.execute(sel)
-        p = r.fetchall()
+        query = r.fetchall()
         products = []
-        for row in p:
-            product = row(p[0],p[1],p[2],p[3],p[4],p[5])
+        for p in query:
+            product = Product(p[0],p[1],p[2],p[3],p[4],p[5])
             products.append(product)
         return products
 
@@ -36,7 +36,9 @@ class DAOProducts(DAOInterface):
     def select(self, productId):
         sel = self.Products.select().where( self.Products.productsId.like(productId) )
         r = self.conn.execute(sel)
-        return r.fetchone()
+        p = r.fetchone()
+        product = Product(p[0],p[1],p[2],p[3],p[4],p[5])
+        return product
 
     def insert(self, product):
         ins = self.Products.insert().values(
