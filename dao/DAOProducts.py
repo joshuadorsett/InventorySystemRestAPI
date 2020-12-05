@@ -22,7 +22,10 @@ class DAOProducts(DAOInterface):
         self.conn = self.db.connection.connect()
 
     def selectAll(self):
-        pass
+        sel = self.Products.select()
+        r = self.conn.execute(sel)
+        return r.fetchall()
+
 
     def select(self, productId):
         pass

@@ -22,7 +22,9 @@ class DAOParts(DAOInterface):
         self.conn = self.db.connection.connect()
 
     def selectAll(self):
-        pass
+        sel = self.Parts.select()
+        r = self.conn.execute(sel)
+        return r.fetchall()
 
     def select(self, partsId):
         pass
