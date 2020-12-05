@@ -2,6 +2,7 @@ from sqlalchemy import Table, Integer, Float, Text, Column
 
 from dao.db import DB
 from dao.DAOInterface import DAOInterface
+from models.Products import Product
 
 
 class DAOProducts(DAOInterface):
@@ -24,7 +25,12 @@ class DAOProducts(DAOInterface):
     def selectAll(self):
         sel = self.Products.select()
         r = self.conn.execute(sel)
-        return r.fetchall()
+        p = r.fetchall()
+        products = []
+        for row in p:
+            product = row(p[0],p[1],p[2],p[3],p[4],p[5])
+            products.append(product)
+        return products
 
 
     def select(self, productId):
