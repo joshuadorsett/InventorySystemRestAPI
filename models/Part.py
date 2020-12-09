@@ -10,7 +10,7 @@ class Part(ModelsInterface):
         self._min = min
         self._max = max
 
-    def getDict(self):
+    def makeDict(self):
         return {
             'id': self._id,
             'name': self._name,
