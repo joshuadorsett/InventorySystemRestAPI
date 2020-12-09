@@ -4,7 +4,6 @@ from dao.db import DB
 from dao.DAOInterface import DAOInterface
 from models.Part import Part
 
-
 class DAOParts(DAOInterface):
     def __init__(self):
         self.database = DB()
