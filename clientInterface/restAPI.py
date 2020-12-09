@@ -48,7 +48,6 @@ def getProducts(id):
     return jsonify(product.makeDict())
 
 
-
 # when post method is received this converts json to dictionary item
 # and adds it to inventory
 @rest.route('/parts', methods=['POST'])
@@ -129,6 +128,7 @@ def deleteParts(id):
         if partId == id:
             partsDao.delete(partId)
             return jsonify(part.makeDict())
+
 
 @rest.route('/products/<int:id>', methods=['DELETE'])
 def deleteProducts(id):
