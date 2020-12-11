@@ -9,6 +9,7 @@ from models.Products import Product
 # define the server object
 rest = Flask(__name__)
 
+
 # instantiate Database Access Objects
 partsDao = DAOParts()
 productsDao = DAOProducts()
