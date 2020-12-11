@@ -13,7 +13,6 @@ rest = Flask(__name__)
 partsDao = DAOParts()
 productsDao = DAOProducts()
 
-
 # this function gets called when there is a GET request for /parts
 @rest.route('/parts', methods=['GET'])
 def getAllParts():
