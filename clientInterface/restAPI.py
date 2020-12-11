@@ -1,7 +1,6 @@
 import psycopg2
 from flask import Flask, jsonify, request, abort
 
-
 from dao.DAOParts import DAOParts
 from dao.DAOProducts import DAOProducts
 from models.Part import Part
@@ -9,7 +8,6 @@ from models.Products import Product
 
 # define the server object
 rest = Flask(__name__)
-
 
 # instantiate Database Access Objects
 partsDao = DAOParts()
