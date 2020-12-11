@@ -1,6 +1,7 @@
 import psycopg2
 from flask import Flask, jsonify, request, abort
 
+
 from dao.DAOParts import DAOParts
 from dao.DAOProducts import DAOProducts
 from models.Part import Part
