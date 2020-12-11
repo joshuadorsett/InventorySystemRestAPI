@@ -23,7 +23,6 @@ def getAllParts():
         partsDictList.append(part.makeDict())
     return jsonify(partsDictList)
 
-
 @rest.route('/products', methods=['GET'])
 def getAllProducts():
     print('all products requested')
@@ -32,7 +31,6 @@ def getAllProducts():
     for product in products:
         productDictList.append(product.makeDict())
     return jsonify(productDictList)
-
 
 # this function gets called when there is a GET request for /parts/id
 @rest.route('/parts/<int:id>', methods=['GET'])
