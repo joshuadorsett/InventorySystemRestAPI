@@ -38,12 +38,10 @@ def getParts(id):
     part = partsDao.select(id)
     return jsonify(part.makeDict())
 
-
 @rest.route('/products/<int:id>', methods=['GET'])
 def getProducts(id):
     product = productsDao.select(id)
     return jsonify(product.makeDict())
-
 
 # when post method is received this converts json to dictionary item
 # and adds it to inventory
@@ -62,7 +60,6 @@ def addParts():
     partsDao.insert(newPart)
     return jsonify(newPart.makeDict())
 
-
 @rest.route('/products', methods=['POST'])
 def addProducts():
     if not request.json:
@@ -77,7 +74,6 @@ def addProducts():
     )
     productsDao.insert(newProduct)
     return jsonify(newProduct.makeDict())
-
 
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['PUT'])
@@ -97,7 +93,6 @@ def updateParts(id):
             partsDao.update(newPart)
     return jsonify(newPart.makeDict())
 
-
 @rest.route('/products/<int:id>', methods=['PUT'])
 def updateProducts(id):
     newProduct = Product(
@@ -114,7 +109,6 @@ def updateProducts(id):
         if productId == id:
             productsDao.update(newProduct)
     return jsonify(newProduct.makeDict())
-
 
 # this selects a certain part to delete
 @rest.route('/parts/<int:id>', methods=['DELETE'])
