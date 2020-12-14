@@ -57,6 +57,7 @@ def addParts():
         request.json['min'],
         request.json['max']
     )
+
     partsDao.insert(newPart)
     return jsonify(newPart.makeDict())
 
