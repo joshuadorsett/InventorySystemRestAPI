@@ -86,6 +86,7 @@ def updateParts(id):
         request.json['min'],
         request.json['max']
     )
+
     parts = partsDao.selectAll()
     for part in parts:
         partId = part.getId()
