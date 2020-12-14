@@ -103,6 +103,7 @@ def updateProducts(id):
         request.json['min'],
         request.json['max']
     )
+
     products = productsDao.selectAll()
     for product in products:
         productId = product.getId()
