@@ -5,6 +5,7 @@ from dao.DAOInterface import DAOInterface
 from models.Products import Product
 
 
+
 class DAOProducts(DAOInterface):
     def __init__(self):
         self.database = DB()
