@@ -3,7 +3,6 @@ from sqlalchemy import Table, Column, Integer
 from dao.db import DB
 from dao.DAOInterface import DAOInterface
 
-
 class DAOAssociation(DAOInterface):
     def __init__(self):
         self.db = DB()
