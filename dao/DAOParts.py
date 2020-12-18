@@ -59,6 +59,7 @@ class DAOParts(DAOInterface):
         )
         self.conn.execute(upd)
 
+
     def delete(self, partsId):
         dele = self.Parts.delete().where(self.Parts.partsId.like(partsId))
         self.conn.execute(dele)
